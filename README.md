@@ -2,6 +2,12 @@
 
 Building a small model from scratch using the CIFAR-10 dataset. 89% test accuracy with minimal hyperparameter tuning.
 
+## TODO (sorry, it's Sunday night)
+
+* Get notebooks and final model off server when it is accessible
+* Test and upload them into this repo
+* Upload confusion matrix script
+
 I enjoyed the challenge of creating a small high-performance model from scratch. In industry, my usual approach to this would be to find the largest pre built model that would fit the requirements and use transfer learning to limit time spent on the task, with minimal tuning.
 
 I chose to build out from a very simple network to show more details of my approach and thinking. I wanted to avoid the approach of building a safe model and running 75+ epochs to produce a good result, although that would have taken a lot less time!

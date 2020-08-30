@@ -1,10 +1,15 @@
+from pip._internal import main as pipmain
+pipmain(['install', 'matplotlib'])
+pipmain(['install', 'sklearn'])
+
+
 import keras
 import numpy as np
 
 from keras.utils import np_utils
 from keras.datasets import cifar10
 
-(x_train_init, y_train), (x_test_init, y_test) = cifar10.load_data()
+(x_train_init, y_train_init), (x_test_init, y_test_init) = cifar10.load_data()
 
 def z_score(value, mean, std):
     return (value - mean) / std
@@ -15,8 +20,8 @@ x_train = z_score(x_train_init, mean, std)
 x_test = z_score(x_test_init, mean, std)
 
 num_classes = 10
-y_train = np_utils.to_categorical(y_train,num_classes)
-y_test = np_utils.to_categorical(y_test,num_classes)
+y_train = np_utils.to_categorical(y_train_init,num_classes)
+y_test = np_utils.to_categorical(y_test_init,num_classes)
 
 reconstructed_model = keras.models.load_model("model")
 

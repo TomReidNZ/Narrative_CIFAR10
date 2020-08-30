@@ -1,8 +1,6 @@
 from pip._internal import main as pipmain
-
 pipmain(['install', 'keras==2.4.3'])
 pipmain(['install', 'tensorflow==2.2.0'])
-
 
 import keras
 from keras.models import Sequential
@@ -33,7 +31,7 @@ def z_score(value, mean, std):
 
 # Load Data
 
-(x_train_init, y_train), (x_test_init, y_test) = cifar10.load_data()
+(x_train_init, y_train_init), (x_test_init, y_test_init) = cifar10.load_data()
 
 mean = np.mean(x_train_init,axis=(0,1,2,3))
 std = np.std(x_train_init,axis=(0,1,2,3))
@@ -41,8 +39,8 @@ x_train = z_score(x_train_init, mean, std)
 x_test = z_score(x_test_init, mean, std)
 
 num_classes = 10
-y_train = np_utils.to_categorical(y_train,num_classes)
-y_test = np_utils.to_categorical(y_test,num_classes)
+y_train = np_utils.to_categorical(y_train_init,num_classes)
+y_test = np_utils.to_categorical(y_test_init,num_classes)
 
 # Model Architecture
 
@@ -101,25 +99,12 @@ def lr_schedule(epoch):
         lrate = 0.0035
     return lrate
 
-def lr_schedule(epoch):
-    lrate = init_lr
-    if epoch > 9:
-        lrate = 0.0025
-    if epoch > 19:
-        lrate = 0.0015
-    if epoch > 29:
-        lrate = 0.0075
-    if epoch > 44:
-        lrate = 0.0035
-    return lrate
-
 def lr_decay(epoch):
     return init_lr * decay ** epoch
 
 class LrHistory(keras.callbacks.Callback):
     def on_epoch_begin(self, epoch, logs={}):
         print("Learning rate:", K.get_value(model.optimizer.lr))
-
         
 early_stop = EarlyStopping(monitor="val_loss", mode="min", patience=5, restore_best_weights=True),
 reduce_lr_loss = ReduceLROnPlateau(monitor='val_loss', factor=0.1, patience=3, verbose=1, mode='min')
