@@ -61,7 +61,7 @@ With the data augmentation working and the model training, I wrote out some help
 
 Keras has a very good callback API, which I leveraged to add in helper functions for dynamically decreasing learning rate (custom decay, scheduling, and ReduceLROnPlateau) and early stop functionality.
 
-I quickly tried several optimizers and found Adamax to perform the best, even when using a learning rate of 0.0035 (3.5x more than default).
+I quickly tried several optimizers and found **Adamax** to perform the best, even when using a learning rate of 0.0035 (3.5x more than default).
 
 This model had now performed at 85%+ with several different hyperparameters.
 
@@ -70,3 +70,16 @@ With some hyperparameter tuning, a result of over 90% test accuracy is very like
 ## Validation / Test data!?
 
 I used the test data as the validation data, due to the limited amount of training data available. This allowed rapid testing to see how approaches were trending. With data augmentation, the test data could be withheld and a train-validation split of 0.2 could be used (0.15 would be the absolute lowest I would go on this dataset with data augmentation). But with limited time and compute, I haven't tried this.
+
+## Next steps
+
+There are lots of ways that could improve performance:
+
+1. Hyperparameter tuning
+  * Testing new activation functions
+  * Testing different optimizers
+  * Adjusting learning rate, decay, and plateau controls
+2. Different architectures
+  * ResNet would be top of my priority list
+3. Data augmentation
+  * Reviewing 
