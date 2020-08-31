@@ -26,7 +26,7 @@ y_train = np_utils.to_categorical(y_train_init,num_classes)
 y_test = np_utils.to_categorical(y_test_init,num_classes)
 
 reconstructed_model = keras.models.load_model("cifar_model")
-
+reconstructed_model.summary()
 scores = reconstructed_model.evaluate(x_test, y_test, batch_size=1, verbose=1)
 print('\nTest result: %.3f loss: %.3f' % (scores[1]*100,scores[0]))
 
