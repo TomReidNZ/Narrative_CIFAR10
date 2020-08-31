@@ -1,10 +1,10 @@
 ## Narrative CIFAR-10 technical test
 
-Building a small model from scratch using the CIFAR-10 dataset. 89% test accuracy with minimal hyperparameter tuning.
+Building a small model from scratch using the CIFAR-10 dataset. 88.7% test accuracy with minimal hyperparameter tuning.
 
 ## TODO (sorry, it's Sunday night)
 
-* Get notebooks and final model off server when it is accessible
+* Get notebooks off server
 * Test and upload them into this repo
 * Upload confusion matrix script
 
