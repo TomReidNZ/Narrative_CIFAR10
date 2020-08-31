@@ -23,20 +23,36 @@ B = tf.keras.backend
 def gelu(x):
     return 0.5 * x * (1 + B.tanh(x * 0.7978845608 * (1 + 0.044715 * x * x)))
 
-# Z score for data
-# TODO add as an option
+# Hyper Params
 
-def z_score(value, mean, std):
-    return (value - mean) / std
+batch_size = 64
+init_lr = 0.0035
+optimizer = keras.optimizers.Adamax()
+decay = 0.925
+datagen_rate = 4
+datagen_rotation = 15
+z_score = True
+activation_function = gelu
+early_stop_patience = 5
+reduce_lr_on_plateau_patience = 2
+reduce_lr_on_plateau_factor = 0.5
 
 # Load Data
 
 (x_train_init, y_train_init), (x_test_init, y_test_init) = cifar10.load_data()
+x_train = (x_train_init).astype('float32')
+x_test = (x_test_init).astype('float32')
 
-mean = np.mean(x_train_init,axis=(0,1,2,3))
-std = np.std(x_train_init,axis=(0,1,2,3))
-x_train = z_score(x_train_init, mean, std)
-x_test = z_score(x_test_init, mean, std)
+# Data Prep
+
+if z_score:
+    mean = np.mean(x_train,axis=(0,1,2,3))
+    std = np.std(x_train,axis=(0,1,2,3))
+    x_train = (x_train - mean) / std
+    x_test = (x_test - mean) / std
+else:
+    x_train = x_train / 255.0
+    x_test = x_test / 255.0
 
 num_classes = 10
 y_train = np_utils.to_categorical(y_train_init,num_classes)
@@ -48,45 +64,48 @@ model = Sequential()
 
 # First Section - 32
 model.add(Conv2D(32, (3,3), padding='same', input_shape=x_train.shape[1:]))
-model.add(Activation(gelu))
+model.add(Activation(activation_function))
 model.add(BatchNormalization())
 model.add(Conv2D(32, (3,3), padding='same'))
-model.add(Activation(gelu))
+model.add(Activation(activation_function))
 model.add(BatchNormalization())
 model.add(MaxPooling2D(pool_size=(2,2)))
 model.add(Dropout(0.25))
  
 # Second Section - 64
 model.add(Conv2D(64, (3,3), padding='same'))
-model.add(Activation(gelu))
+model.add(Activation(activation_function))
 model.add(BatchNormalization())
 model.add(Conv2D(64, (3,3), padding='same'))
-model.add(Activation(gelu))
+model.add(Activation(activation_function))
 model.add(BatchNormalization())
 model.add(MaxPooling2D(pool_size=(2,2)))
 model.add(Dropout(0.3))
  
 # Third Section - 128
 model.add(Conv2D(128, (3,3), padding='same'))
-model.add(Activation(gelu))
+model.add(Activation(activation_function))
 model.add(BatchNormalization())
 model.add(Conv2D(128, (3,3), padding='same'))
-model.add(Activation(gelu))
+model.add(Activation(activation_function))
 model.add(BatchNormalization())
 model.add(MaxPooling2D(pool_size=(2,2)))
 model.add(Dropout(0.35))
  
 # Final dense and Softmax
 model.add(Flatten())
-model.add(Dense(units=256, activation=gelu))
+model.add(Dense(units=256, activation=activation_function))
 model.add(Dropout(0.5))
 model.add(Dense(num_classes, activation='softmax'))
  
 model.summary()
 
-# LR Helper functions
+model.compile(loss='categorical_crossentropy', optimizer=optimizer, metrics=['accuracy'])
 
-# Not used yet
+model.summary()
+
+# Callbacks
+
 def lr_schedule(epoch):
     lrate = init_lr
     if epoch > 9:
@@ -106,19 +125,9 @@ class LrHistory(keras.callbacks.Callback):
     def on_epoch_begin(self, epoch, logs={}):
         print("Learning rate:", K.get_value(model.optimizer.lr))
         
-early_stop = EarlyStopping(monitor="val_loss", mode="min", patience=5, restore_best_weights=True),
-reduce_lr_loss = ReduceLROnPlateau(monitor='val_loss', factor=0.1, patience=3, verbose=1, mode='min')
+early_stop = EarlyStopping(monitor="val_loss", mode="min", patience=early_stop_patience, restore_best_weights=True)
 
-# Hyper Params
-
-batch_size = 64
-init_lr = 0.0035
-optimizer = keras.optimizers.Adamax()
-decay = 0.925
-datagen_rate = 4
-datagen_rotation = 15
-
-model.compile(loss='categorical_crossentropy', optimizer=optimizer, metrics=['accuracy'])
+reduce_lr_loss = ReduceLROnPlateau(monitor='val_loss', factor=0.5, patience=reduce_lr_on_plateau_patience, verbose=1, mode='min')
 
 # TF Datagen
 
