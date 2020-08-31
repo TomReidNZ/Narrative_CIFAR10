@@ -20,10 +20,10 @@ Requires Python 3.7 (untested on other versions).
 
 Clone the repo, open your terminal and navigate to the main folder ```Narrative_CIFAR10```
 
-**Training script** - copy and paste ```cifar10.py``` into the terminal and hit enter.
+**Training script** - copy and paste ```python3 cifar10.py``` into the terminal and hit enter.
 The trained models are already available, so you don't need to run the whole training cycle.
 
-**Test script** - copy and paste ```cifar10_test.py``` into the terminal and hit enter.
+**Test script** - copy and paste ```python3 cifar10_test.py``` into the terminal and hit enter.
 
 ### CIFAR-10
 
