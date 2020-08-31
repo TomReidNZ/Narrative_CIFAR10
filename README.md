@@ -1,12 +1,6 @@
 ## Narrative CIFAR-10 technical test
 
-Building a small model from scratch using the CIFAR-10 dataset. 88.7% test accuracy with minimal hyperparameter tuning.
-
-## TODO (sorry, it's Sunday night)
-
-* Get notebooks off server
-* Test and upload them into this repo
-* Upload confusion matrix script
+Building a small model from scratch using the CIFAR-10 dataset. 89.29% test accuracy with minimal tuning.
 
 I enjoyed the challenge of creating a small high-performance model from scratch. In industry, my usual approach to this would be to find the largest pre built model that would fit the requirements and use transfer learning to limit time spent on the task, with minimal tuning.
 
@@ -14,16 +8,16 @@ I chose to build out from a very simple network to show more details of my appro
 
 The final model has over 86% accuracy on the 10th epoch. This is without a lot of fine tuning and experimentation. I would like to try using ResNet 18 or 20 with data augmentation.
 
-Requires Python 3.7 (untested on other versions).
+Requires Python 3.8.
 
 ### Getting started
 
 Clone the repo, open your terminal and navigate to the main folder ```Narrative_CIFAR10```
 
-**Training script** - copy and paste ```python3 cifar10.py``` into the terminal and hit enter.
+**Training script** - copy and paste ```python3 cifar10_train.py``` into the terminal and hit enter.
 The trained models are already available, so you don't need to run the whole training cycle.
 
-**Test script** - copy and paste ```python3 cifar10_test.py``` into the terminal and hit enter.
+**Test script and confusion matrix** - copy and paste ```python3 cifar10_test.py``` into the terminal and hit enter.
 
 ### CIFAR-10
 
@@ -72,6 +66,9 @@ I quickly tried several optimizers and found **Adamax** to perform the best, eve
 This model had now performed at 85%+ with several different hyperparameters.
 
 With some hyperparameter tuning, a result of over 90% test accuracy is very likely achievable.
+
+![Confusion matrix](/confusion_matrix_cifar10.png)
+![Confusion matrix](confusion_matrix_normalized_cifar10.png)
 
 ## Validation / Test data!?
 
