@@ -153,7 +153,7 @@ model.fit(datagen.flow(x_train, y_train, batch_size=batch_size),
           ])
 
 # Save Model
-model.save('cifar')
+model.save('cifar_model')
 #testing
 scores = model.evaluate(x_test, y_test, batch_size=1)
 print('\nTest result: %.3f loss: %.3f' % (scores[1]*100,scores[0]))
