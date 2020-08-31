@@ -97,11 +97,10 @@ After the MaxPooling2D layer, dropout started at 0.25 for the first 32 Conv2D se
 
 Training results were promising, so I moved on.
 
-```markdown
-Conv2D(32, GELU)
+<pre>Conv2D(32, GELU)
 Conv2D(32, GELU)
 MaxPooling2D(2,2)
-**Dropout(0.25)**
+<b>Dropout(0.25)</b>
 
 Conv2D(64, GELU)
 MaxPooling2D(2,2)
@@ -115,8 +114,8 @@ Dropout(0.4)
 Dense(softmax)
 
 optimizer: adam(lr=0.003)
-**callbacks: learning rate decay, early stopping**
-```
+<b>callbacks: learning rate decay, early stopping</b>
+</pre>
 
 ### The final model
 
