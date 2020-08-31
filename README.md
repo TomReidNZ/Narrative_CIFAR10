@@ -148,12 +148,12 @@ MaxPooling2D(2,2)
 Dropout(0.25)
 
 Conv2D(64, GELU, <b>Batch Normalization</b>)
-**Conv2D(64, GELU, <b>Batch Normalization</b>)
+<b>Conv2D(64, GELU, Batch Normalization</b>)
 MaxPooling2D(2,2)
-**Dropout(0.3)**
+<b>Dropout(0.3)</b>
 
 Conv2D(64, GELU, <b>Batch Normalization</b>)
-<b>Conv2D(64, GELU, <b>Batch Normalization)</b>
+<b>Conv2D(64, GELU, Batch Normalization)</b>
 MaxPooling2D(2,2)
 Dropout(<b>0.4</b>)
 
