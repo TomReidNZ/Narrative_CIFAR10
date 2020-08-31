@@ -40,10 +40,11 @@ reduce_lr_on_plateau_factor = 0.5
 # Load Data
 
 (x_train_init, y_train_init), (x_test_init, y_test_init) = cifar10.load_data()
-x_train = (x_train_init).astype('float32')
-x_test = (x_test_init).astype('float32')
 
 # Data Prep
+
+x_train = (x_train_init).astype('float32')
+x_test = (x_test_init).astype('float32')
 
 if z_score:
     mean = np.mean(x_train,axis=(0,1,2,3))
@@ -98,8 +99,6 @@ model.add(Dense(units=256, activation=activation_function))
 model.add(Dropout(0.5))
 model.add(Dense(num_classes, activation='softmax'))
  
-model.summary()
-
 model.compile(loss='categorical_crossentropy', optimizer=optimizer, metrics=['accuracy'])
 
 model.summary()
@@ -154,6 +153,6 @@ model.fit(datagen.flow(x_train, y_train, batch_size=batch_size),
 
 # Save Model
 model.save('cifar_model')
-#testing
+# Test Model
 scores = model.evaluate(x_test, y_test, batch_size=1)
 print('\nTest result: %.3f loss: %.3f' % (scores[1]*100,scores[0]))
