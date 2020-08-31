@@ -4,7 +4,7 @@ Building a small model from scratch using the CIFAR-10 dataset. 89.29% test accu
 
 I enjoyed the challenge of creating a small high-performance model from scratch. In industry, my usual approach to this would be to find the largest pre built model that would fit the requirements (< 1 million parameters and under 20ms inference time) and use transfer learning to limit time spent on the task, with minimal tuning. 
 
-I chose to build out from a very simple network to show more details of what I consider a modern approach to ML problems - Rapid testing of hypotheses which leverage the latest tools and techniques. I wanted to avoid the approach of building a safe model and running 75+ epochs to produce a good result, although that would have taken a lot less time!
+I chose to build out from a very simple network to show what I consider a modern approach to ML problems - Rapid testing of hypotheses which leverage the latest tools and techniques. I wanted to avoid the approach of building a safe model and running 75+ epochs to produce a good result, although that would have taken a lot less time!
 
 **The final model has over 87% accuracy on the 10th epoch.** This is without a lot of fine tuning and experimentation. To improve on this, I would next try a ResNet 18 or 20 structure with data augmentation, with and without transfer learning.
 
@@ -179,6 +179,7 @@ There are lots of ways that could improve performance:
   * Testing new activation functions
   * Testing different optimizers
   * Adjusting learning rate, decay, and plateau controls
+  * More regularization
 2. Different architectures
   * ResNet would be top of my priority list
 3. Data augmentation
