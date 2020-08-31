@@ -35,7 +35,8 @@ My first experiment was a relatively small CNN, expected to have average perform
 
 I chose the Adam optimizer, because it works fairly well on out of the box in Keras, and easily changed later.
 
-```Conv2D(32, relu)
+```
+Conv2D(32, relu)
 MaxPooling2D(2,2)
 
 Conv2D(64, relu)
@@ -48,7 +49,8 @@ MaxPooling2D(2,2)
 Dense(128, relu)
 Dense(softmax)
 
-optimizer: adam```
+optimizer: adam
+```
 
 #### Choosing GELU and Adam
 
@@ -60,7 +62,8 @@ GELU is only in TF nightly, so I added a custom function in the script for it. H
 
 After verifying the model would train ok, I increased the learning rate to 0.003 (3x the standard).
 
-```Conv2D(32, GELU)
+```
+Conv2D(32, GELU)
 Conv2D(32, GELU)
 MaxPooling2D(2,2)
 
@@ -75,7 +78,8 @@ Dense(256, GELU)
 Dropout(0.4)
 Dense(softmax)
 
-optimizer: adam(lr=0.003)```
+optimizer: adam(lr=0.003)
+```
 
 ### A larger model
 
@@ -93,7 +97,8 @@ After the MaxPooling2D layer, dropout started at 0.25 for the first 32 Conv2D se
 
 Training results were promising, so I moved on.
 
-```Conv2D(32, GELU)
+```
+Conv2D(32, GELU)
 Conv2D(32, GELU)
 MaxPooling2D(2,2)
 **Dropout(0.25)**
@@ -110,8 +115,8 @@ Dropout(0.4)
 Dense(softmax)
 
 optimizer: adam(lr=0.003)
-**callbacks: learning rate decay, early stopping**```
-
+**callbacks: learning rate decay, early stopping**
+```
 
 ### The final model
 
@@ -137,7 +142,8 @@ This model had now performed at 85%+ with several different hyperparameters.
 
 With some hyperparameter tuning, a result of over 90% test accuracy is very likely achievable.
 
-```**data augmentation: width shift, height shift, horizontal_flip**
+```
+**Data augmentation: width shift, height shift, horizontal_flip**
 
 Conv2D(32, GELU, **Batch Normalization**)
 Conv2D(32, GELU, **Batch Normalization**)
@@ -159,7 +165,8 @@ Dropout(**0.5**)
 Dense(softmax)
 
 optimizer: **Adamax(lr=0.0035)**
-callbacks: learning rate decay, early stopping, **reduce lr on plateau**```
+callbacks: learning rate decay, early stopping, **reduce lr on plateau**
+```
 
 ![Confusion matrix](/confusion_matrix_cifar10.png)
 ![Confusion matrix](confusion_matrix_normalized_cifar10.png)
