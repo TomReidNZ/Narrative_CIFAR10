@@ -97,7 +97,7 @@ After the MaxPooling2D layer, dropout started at 0.25 for the first 32 Conv2D se
 
 Training results were promising, so I moved on.
 
-```
+```markdown
 Conv2D(32, GELU)
 Conv2D(32, GELU)
 MaxPooling2D(2,2)
