@@ -60,26 +60,25 @@ I chose GELU for the activation function because of its recent success with mode
 
 GELU is only in TF nightly, so I added a custom function in the script for it. However, this causes problems when trying to load a model saved from a checkpoint. Model.save still works and loads, though.
 
-After verifying the model would train ok, I increased the learning rate to 0.003 (3x the standard).
+After verifying the model would train ok, I increased the learning rate to 0.003 (3x the default), and added in a small amount of dropout.
 
-```
-Conv2D(32, GELU)
-Conv2D(32, GELU)
+<pre>Conv2D(32, <b>GELU</b>)
+Conv2D(32, <b>GELU</b>)
 MaxPooling2D(2,2)
 
-Conv2D(64, GELU)
+Conv2D(64, <b>GELU</b>)
 MaxPooling2D(2,2)
 
-Conv2D(64, GELU)
+Conv2D(64, <b>GELU</b>)
 MaxPooling2D(2,2)
-Dropout(0.2)
+<b>Dropout(0.2)</b>
 
-Dense(256, GELU)
-Dropout(0.4)
+Dense(<b>256, GELU</b>)
+<b>Dropout(0.4)</b>
 Dense(softmax)
 
-optimizer: adam(lr=0.003)
-```
+optimizer: adam(<b>lr=0.003</b>)
+</pre>
 
 ### A larger model
 
@@ -109,7 +108,7 @@ Conv2D(64, GELU)
 MaxPooling2D(2,2)
 Dropout(0.4)
 
-Dense(**512**, GELU)
+Dense(<b>512</b>, GELU)
 Dropout(0.4)
 Dense(softmax)
 
@@ -141,31 +140,29 @@ This model had now performed at 85%+ with several different hyperparameters.
 
 With some hyperparameter tuning, a result of over 90% test accuracy is very likely achievable.
 
-```
-**Data augmentation: width shift, height shift, horizontal_flip**
+<pre><b>Data augmentation: width shift, height shift, horizontal_flip</b>
 
-Conv2D(32, GELU, **Batch Normalization**)
-Conv2D(32, GELU, **Batch Normalization**)
+Conv2D(32, GELU, <b>Batch Normalization</b>)
+Conv2D(32, GELU, <b>Batch Normalization</b>)
 MaxPooling2D(2,2)
 Dropout(0.25)
 
-Conv2D(64, GELU, **Batch Normalization**)
-**Conv2D(64, GELU, Batch Normalization)**
+Conv2D(64, GELU, <b>Batch Normalization</b>)
+**Conv2D(64, GELU, <b>Batch Normalization</b>)
 MaxPooling2D(2,2)
 **Dropout(0.3)**
 
-Conv2D(64, GELU, **Batch Normalization**)
-**Conv2D(64, GELU, Batch Normalization)**
+Conv2D(64, GELU, <b>Batch Normalization</b>)
+<b>Conv2D(64, GELU, <b>Batch Normalization)</b>
 MaxPooling2D(2,2)
-Dropout(**0.4**)
+Dropout(<b>0.4</b>)
 
-Dense(**256**, GELU)
-Dropout(**0.5**)
+Dense(<b>256</b>, GELU)
+Dropout(<b>0.5</b>)
 Dense(softmax)
 
-optimizer: **Adamax(lr=0.0035)**
-callbacks: learning rate decay, early stopping, **reduce lr on plateau**
-```
+optimizer: <b>Adamax(lr=0.0035)</b>
+callbacks: learning rate decay, early stopping, <b>reduce lr on plateau</b></pre>
 
 ![Confusion matrix](/confusion_matrix_cifar10.png)
 ![Confusion matrix](confusion_matrix_normalized_cifar10.png)
